@@ -87,11 +87,11 @@ class Wallet {
 
     public sendFunds(recipientAddress: string, amount: number): boolean {
         if (this.balance < amount) {
-            console.log("Insufficient balance.")
+            console.log("Insufficient balance. (" + amount + ") not in wallet.")
             return false
         }
 
-        console.log("Sent " + amount + " coins to " + recipientAddress)
+        console.log(this.address + " sent " + amount + " coins to " + recipientAddress)
         this.balance -= amount
         return true
     }
@@ -105,13 +105,24 @@ blockchain.makePayment(24, "Bob", "John")
 
 console.log(blockchain.chain)
 console.log("Blockchain valid?", blockchain.isChainValid())
+console.log("\n")
 
 const wallet = new Wallet(50, '0x41e8k93i1012');
 console.log("Balance: " + wallet.getBalance());
 console.log("Address: " + wallet.getAddress());
 wallet.recieveFunds(100);
 console.log("Balance: " + wallet.getBalance()); // 150
-wallet.sendFunds('456def', 75); // true
+wallet.sendFunds('0x9h2n1qor24cq9', 75); // true
 console.log("Balance: " + wallet.getBalance()); // 75
-wallet.sendFunds('456def', 100); // false
+wallet.sendFunds('0x9h2n1qor24cq9', 100); // false
 console.log("Balance: " + wallet.getBalance()); // 75
+console.log("\n")
+const myWallet = new Wallet(75, '0x9h2n1qor24cq9');
+console.log("Balance: " + myWallet.getBalance());
+console.log("Address: " + myWallet.getAddress());
+myWallet.recieveFunds(10);
+console.log("Balance: " + wallet.getBalance()); // 150
+myWallet.sendFunds('0x41e8k93i1012', 25); // true
+console.log("Balance: " + myWallet.getBalance()); // 75
+myWallet.sendFunds('0x41e8k93i1012', 900); // false
+console.log("Balance: " + myWallet.getBalance()); // 75
