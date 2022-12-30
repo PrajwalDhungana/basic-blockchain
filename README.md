@@ -1,2 +1,2 @@
 # Basic Blockchain Demo
-A basic blockchain developed using Typescript
+A basic blockchain demo developed using Typescript
